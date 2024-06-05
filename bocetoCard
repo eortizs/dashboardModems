@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Card with Adjustable Font Size</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        input:checked + .block {
+            background-color: #e53e3e; /* Red color when ON */
+        }
+
+        input:checked + .block + .dot {
+            transform: translateX(1rem); /* Adjust according to size */
+        }
+
+        .block {
+            width: 2rem; /* Smaller width */
+            height: 1rem; /* Smaller height */
+            background-color: #a0aec0; /* Gray background when OFF */
+        }
+
+        .dot {
+            width: 0.75rem; /* Smaller dot width */
+            height: 0.75rem; /* Smaller dot height */
+            top: 0.125rem; /* Adjust top position */
+            left: 0.125rem; /* Adjust left position */
+        }
+
+        .title {
+            max-width: 100%; /* Ensure the text doesn't overflow the container */
+            overflow: hidden; /* Hide any overflow text */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .title-container {
+            width: 100%;
+        }
+
+        .pressure-wrapper {
+            position: absolute;
+            left: 15px; /* Adjust left margin as needed */
+            top: 55%; /* Adjust vertical position as needed */
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #d3d3d3; /* Light gray border on the right */
+            padding-right: 10px; /* Add some padding to avoid text touching the border */
+        }
+
+        .pressure-indicator {
+            font-weight: bold;
+            color: #000000; /* Black color */
+            font-size: 2.2rem; /* Fixed font size */
+            text-align: center;
+        }
+
+        .pressure-unit {
+            font-size: 0.75rem; /* Small font size for the unit */
+            color: #000000; /* Black color */
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100 p-4">
+    <!-- Card -->
+    <div class="bg-white shadow-md rounded-lg p-4 w-full max-w-sm h-52 flex flex-col justify-between m-4 relative">
+        <div class="title-container">
+            <h2 class="title mb-4">Estación PS-Xochimilco</h2>
+        </div>
+        <div class="pressure-wrapper">
+            <div class="pressure-indicator" id="pressure-indicator">-1.12</div>
+            <div class="pressure-unit" id="pressure-unit">inWC</div>
+        </div>
+        <!-- Toggle Switches -->
+        <div class="flex flex-col items-end space-y-2">
+            <label for="toggle-example-0" class="flex items-center cursor-pointer">
+                <!-- Label -->
+                <div class="mr-3 text-gray-700">Alarma Presión</div>
+                <!-- Switch Container -->
+                <div class="relative mr-1">
+                    <!-- Input -->
+                    <input type="checkbox" id="toggle-example-0" class="sr-only" />
+                    <!-- Line -->
+                    <div class="block rounded-full"></div>
+                    <!-- Dot -->
+                    <div class="dot absolute bg-white rounded-full transition transform"></div>
+                </div>
+            </label>
+            <label for="toggle-example-1" class="flex items-center cursor-pointer">
+                <!-- Label -->
+                <div class="mr-3 text-gray-700">MV OFF</div>
+                <!-- Switch Container -->
+                <div class="relative mr-1">
+                    <!-- Input -->
+                    <input type="checkbox" id="toggle-example-1" class="sr-only" />
+                    <!-- Line -->
+                    <div class="block rounded-full"></div>
+                    <!-- Dot -->
+                    <div class="dot absolute bg-white rounded-full transition transform"></div>
+                </div>
+            </label>
+            <label for="toggle-example-2" class="flex items-center cursor-pointer">
+                <!-- Label -->
+                <div class="mr-3 text-gray-700">Alarma MV ON</div>
+                <!-- Switch Container -->
+                <div class="relative mr-1">
+                    <!-- Input -->
+                    <input type="checkbox" id="toggle-example-2" class="sr-only" />
+                    <!-- Line -->
+                    <div class="block rounded-full"></div>
+                    <!-- Dot -->
+                    <div class="dot absolute bg-white rounded-full transition transform"></div>
+                </div>
+            </label>
+            <label for="toggle-example-3" class="flex items-center cursor-pointer">
+                <!-- Label -->
+                <div class="mr-3 text-gray-700">MINI OFF</div>
+                <!-- Switch Container -->
+                <div class="relative mr-1">
+                    <!-- Input -->
+                    <input type="checkbox" id="toggle-example-3" class="sr-only" />
+                    <!-- Line -->
+                    <div class="block rounded-full"></div>
+                    <!-- Dot -->
+                    <div class="dot absolute bg-white rounded-full transition transform"></div>
+                </div>
+            </label>
+        </div>
+    </div>
+    <script>
+        function adjustFontSize() {
+            const title = document.querySelector('.title');
+            const container = document.querySelector('.title-container');
+            let fontSize = 24; // Base font size in px
+            title.style.fontSize = fontSize + 'px';
+            while (title.scrollWidth > container.clientWidth && fontSize > 0) {
+                fontSize--;
+                title.style.fontSize = fontSize + 'px';
+            }
+        }
+
+        window.addEventListener('resize', adjustFontSize);
+        window.addEventListener('load', adjustFontSize);
+    </script>
+</body>
+</html>
